@@ -13,8 +13,18 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
+        'grid-template-rows': 'grid-template-rows'
+      },
+      gridTemplateRows: {
+        '0': 'grid-template-rows: 0fr'
+      }      
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 }
 export default config
