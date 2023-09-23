@@ -179,7 +179,7 @@ function DailyForecastCard({
         </div>
         <div className='mt-[2rem] mb-[0.6rem]'>
           <ul className='hidden sm:flex flex-col gap-[0.6rem] text-center'>
-            <li>{elem.feels_like} C</li>
+            <li>{Math.floor(elem.feels_like)} C</li>
             <li>{elem.clouds}%</li>
             <li>{elem.pressure} hPa</li>
             <li>{elem.humidity}%</li>
