@@ -115,7 +115,9 @@ export default function DailyForecastScreen() {
         <button
           onClick={handlePrevForecastClick}
           disabled={disablePrevButton}
-          className=' w-fit bg-orange-500 rounded-lg p-2 text-white'
+          className={`w-fit bg-orange-500 rounded-lg ${
+            disablePrevButton ? "bg-gray-500" : ""
+          } p-2 text-white`}
         >
           Прогноза за предишни дни
         </button>
