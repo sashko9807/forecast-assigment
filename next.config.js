@@ -4,13 +4,13 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'openweathermap.org',
-        port: '',
-        pathname: '/img/wn/**',
+        protocol: "https",
+        hostname: "openweathermap.org",
+        port: "",
+        pathname: "/img/wn/**",
       },
     ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

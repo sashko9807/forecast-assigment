@@ -1,9 +1,9 @@
-import zod from 'zod'
+import zod from "zod";
 
 const envSchema = zod.object({
-    GOOGLE_MAPS_API_KEY: zod.string().nonempty(),
-    OPEN_WEATHER_API_KEY: zod.string().nonempty(),
-    OPEN_WEATHER_STATION_ID: zod.string().nonempty()
-})
+  GOOGLE_MAPS_API_KEY: zod.string().nonempty(),
+  OPEN_WEATHER_API_KEY: zod.string().nonempty(),
+  OPEN_WEATHER_STATION_ID: zod.string().nonempty(),
+});
 
-export const env = envSchema.parse(process.env)
+export const env = envSchema.parse(process.env);
