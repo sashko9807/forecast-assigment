@@ -38,6 +38,12 @@ export default function DailyForecastScreen() {
       </div>
     </div>  
     <div className='flex w-full sm:w-fit  flex-col  sm:flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-rounded-[100px] scrollbar-track-gray-100'>
+    <button className='py-4 sm:hidden' onClick={toggleMetricForm}> + Добави нови измервания</button>
+      <div className={`transition-[grid-template-rows] grid ease-in-out duration-500 sm:hidden ${!showMetricForm ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
+        <div className='overflow-hidden relative'>
+      <AddNewMetricScreen hideForm={toggleMetricForm} />
+        </div>
+    </div>   
       {hourly.map((currWeather:any, index:any) => {
 
         return(

@@ -26,10 +26,10 @@ export default function AddNewMetricScreen({hideForm}:any){
     
     return (
         <div className='py-5'>
-         <div className='absolute right-0 bottom-[0.50rem]'>
+         <div className='sm:absolute right-0 bottom-[0.50rem]'>
             </div>   
-         <h1 className='text-center font-bold w-full flex flex-row justify-center py-5'>Добавяне на показател</h1>
-         <button className='absolute right-2 top-2 text-[22px] text-red-500' onClick={hideForm}>X</button>
+         <h1 className='hidden  text-center font-bold w-full sm:flex flex-row justify-center py-5'>Добавяне на показател</h1>
+         <button className='hidden sm:block absolute right-2 top-2 text-[22px] text-red-500' onClick={hideForm}>X</button>
         <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col justify-center gap-3 px-5 w-full'>            
         <label className='flex flex-col'>

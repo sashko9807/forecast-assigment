@@ -48,7 +48,7 @@ const CITY_SELECTOR = [
   },               
 ]
 
-export default function IndexPage(props:any) {
+export default function IndexPage() {
   const [selectedCity, setSelectedCity] = useState(CITY_SELECTOR[0])
 
   const [showDropDown, setShowDropDown] = useState(false);
