@@ -7,11 +7,9 @@ export default function AddNewMetricScreen({hideForm}:any){
     const {
         register,
         handleSubmit,
-        trigger,
         reset,
-        formState: {errors, isValid},
+        formState: {errors},
     }= useForm<TMetricInputSchema>({resolver:zodResolver(metricsInputSchema)})
-    console.log(isValid)
 
     const [addMetrics, {isLoading, isSuccess, isError}] = useAddMetricsDataMutation()
     const onSubmit:SubmitHandler<TMetricInputSchema>  = async(data) => {

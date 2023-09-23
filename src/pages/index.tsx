@@ -50,6 +50,7 @@ const CITY_SELECTOR = [
 
 export default function IndexPage(props:any) {
   const [selectedCity, setSelectedCity] = useState(CITY_SELECTOR[0])
+
   const [showDropDown, setShowDropDown] = useState(false);
 
   const {data={}, isLoading} = useGetLatestForecastDataQuery(selectedCity.full, { refetchOnMountOrArgChange: true})

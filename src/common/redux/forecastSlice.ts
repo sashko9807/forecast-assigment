@@ -16,7 +16,8 @@ export const weatherSlice = createSlice({
         builder.addCase(
             HYDRATE,
             (state:any, action:any) => {
-             const hackySSR = action.payload.api.queries['getLatestForecastData("Sofia,Bulgaria")'].data
+             const dynamicKey = Object.keys(action.payload.api.queries)[0]
+             const hackySSR = action.payload.api.queries[dynamicKey].data
              state.forecast = hackySSR
             })
         builder.addMatcher(
