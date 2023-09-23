@@ -6,20 +6,28 @@ import { openWeatherImageUrl } from '@/common/utils/openWeatherRequestBuilder'
 import WeatherTooltip from './WeatherTooltip'
 import InformationIcon from '../../../public/icons/information'
 import Image from 'next/image'
+import {useState} from 'react'
+import AddNewMetricScreen from '../metrics/AddNewMetricsScreen'
+
 
 export default function DailyForecastScreen() {
   const [activeTooltip, handleToolTipHover] = useExpandContent()
   const {hourly, offset}= useSelector(getHourlyForecastWithTZOffset)
+  const [showMetricForm, setShowMetricForm] = useState(false)
+
+  const toggleMetricForm = () => {
+    setShowMetricForm(!showMetricForm)
+  }
 
   return (
-    <div className='flex flex-row h-fit  bg-white'>
+    <div className='flex relative flex-row bg-white'>
       <div className='hidden sm:flex flex-col w-full h-full min-w-[150px] border-r-2 border-dashed p-2 bg-white'>
       <div className='font-bold text-lg text-right'>Час</div>
       <div className='text-[#CACBCC] text-right'>Дата</div>
       <div className='flex flex-col mt-16 justify-center items-center'>    
       </div>
       <div className='h-full' >
-        <ul className='text-right flex gap-[0.7rem] flex-col pb-4 h-full justify-end'>
+        <ul className='text-right flex gap-[0.7rem] flex-col pb-14 h-full justify-end'>
           <li className='mb-9'>Скорост на вятъра</li>
           <li>Усеща се</li>
           <li>Облачност</li>
@@ -28,8 +36,8 @@ export default function DailyForecastScreen() {
         </ul>
 
       </div>
-    </div>
-    <div className='flex w-full sm:w-fit flex-col sm:flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-rounded-[100px] scrollbar-track-gray-100'>
+    </div>  
+    <div className='flex w-full sm:w-fit  flex-col  sm:flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-rounded-[100px] scrollbar-track-gray-100'>
       {hourly.map((currWeather:any, index:any) => {
 
         return(
@@ -43,8 +51,14 @@ export default function DailyForecastScreen() {
       />            
         )
       })}
+      <button className={`hidden sm:block absolute right-5  bottom-3 w-fit bg-orange-500 rounded-lg p-2 z-10  text-white` } onClick={toggleMetricForm}> + Добавяне на нови показатели</button>
+    <div className={`transition-[max-height]   ease-in-out duration-500  ${!showMetricForm ? 'max-h-[0px] ' : 'max-h-[100%]'}`}>
+     <div className={`overflow-hidden  scrollbar-thin scrollbar-thumb-gray-300 scrollbar-rounded-[100px] scrollbar-track-gray-100 flex flex-col absolute right-0 bottom-2 w-full sm:overflow-auto  z-10  shadow-lg sm:max-w-[21rem] bg-white transition-[max-height]   ease-in-out duration-500  ${!showMetricForm ? 'max-h-[0px] ' : 'max-h-full'}`}>
+      <AddNewMetricScreen hideForm={toggleMetricForm}/>
     </div>
     </div>
+    </div>
+      </div>
   )
 }
 
@@ -54,13 +68,13 @@ function DailyForecastCard({activeTooltip, onPointerOut, onPointerOver, elem, of
   return (
     <>
     
-    <div className='flex flex-row gap-1  border-t-2 first:border-t-0 sm:border-t-0 sm:flex-col items-center justify-between first:border-l-0 border-l-2 border-dashed p-2 bg-white'>
+    <div className='flex flex-row gap-1 sm:pb-12 border-t-2 first:border-t-0 sm:border-t-0 sm:flex-col items-center justify-between first:border-l-0 border-l-2 border-dashed p-2 bg-white'>
     <div className='flex flex-row w-full sm:flex-col items-center justify-between'>
        <div className='flex flex-col'>
-      <div className='font-bold text-lg sm:text-center'>{hourAndDate.hour}</div>
-      <div className='text-[#CACBCC] sm:text-center'>{hourAndDate.date}</div>
+      <div className='font-bold text-sm sm:text-lg sm:text-center'>{hourAndDate.hour}</div>
+      <div className='text-[#CACBCC] text-sm sm:text-lg sm:text-center'>{hourAndDate.date}</div>
        </div>
-       <div className='flex flex-row  items-center gap-1 sm:flex-col my-[2rem]'>
+       <div className='flex flex-row  items-center gap-1 sm:flex-col sm:my-[2rem]'>
       <div className='relative  w-[50px] min-[450px]:w-32 aspect-square'>
       <Image src={openWeatherImageUrl(elem.weather[0].icon)} fill alt='weather-icon'/>
       </div>

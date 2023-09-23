@@ -7,10 +7,18 @@ export const forecastQueries = apiSlice.injectEndpoints({
         url: `/api/${city}/get-weather`
       }),
       providesTags: ['forecast'],
-    })
+    }),
+    addMetricsData: builder.mutation({
+      query: ( metrics ) => ({
+        url:'/api/metrics/add',
+        method: 'POST',
+        body: {...metrics},
+      }),
+    }),    
   }),
 });
 
 export const {
-    useGetLatestForecastDataQuery
+    useGetLatestForecastDataQuery,
+    useAddMetricsDataMutation,
 } = forecastQueries
