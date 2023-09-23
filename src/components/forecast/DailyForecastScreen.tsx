@@ -21,7 +21,10 @@ export default function DailyForecastScreen() {
   const [showMetricForm, setShowMetricForm] = useState(false);
   const prevBtnRef = useRef<any>(0);
   const lastFetchedDate = useRef<any>();
-  const [disablePrevButton, setDisablePrevButton] = useState(false);
+  const OPEN_WEATHER_HISTORY_LIMIT = 192;
+  const [disablePrevButton, setDisablePrevButton] = useState(
+    hourly.length >= OPEN_WEATHER_HISTORY_LIMIT
+  );
 
   const [trigger, { isLoading, isSuccess }, lastPromiseInfo] =
     useLazyGetForecastForPreviousDayQuery();
@@ -31,13 +34,11 @@ export default function DailyForecastScreen() {
   };
 
   const handlePrevForecastClick = () => {
-    console.log(lastFetchedDate.current);
     const dt = getPreviousDateToUnix(
       lastFetchedDate.current ?? hourly[0].dt + offset
     );
     trigger({ location, dt });
     if (isSuccess) {
-      console.log(dt);
       lastFetchedDate.current = dt;
       prevBtnRef.current = prevBtnRef.current + 1;
     }
@@ -47,8 +48,10 @@ export default function DailyForecastScreen() {
     }
   };
 
+  console.log(disablePrevButton);
+
   return (
-    <div className='flex flex-col'>
+    <div className='flex relative flex-col'>
       <div className='flex relative flex-row bg-white'>
         <div className='hidden sm:flex flex-col w-full h-full min-w-[150px] max-w-[100px] border-r-2 border-dashed p-2 bg-white'>
           <div className='font-bold text-lg text-right'>Час</div>
@@ -114,7 +117,7 @@ export default function DailyForecastScreen() {
       <div className='flex justify-center relative  py-2 h-fit w-full bg-white'>
         <button
           onClick={handlePrevForecastClick}
-          disabled={disablePrevButton}
+          disabled={disablePrevButton || isLoading}
           className={`w-fit bg-orange-500 rounded-lg ${
             disablePrevButton ? "bg-gray-500" : ""
           } p-2 text-white`}
