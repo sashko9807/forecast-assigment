@@ -1,10 +1,14 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { storeWrapper } from "@/common/redux/store";
+import { Provider } from "react-redux";
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, ...rest }: AppProps) => {
+  const { store, props } = storeWrapper.useWrappedStore(rest);
+  const { pageProps } = props;
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <title>Forecast</title>
         <meta
@@ -18,6 +22,8 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Component {...pageProps} />
-    </>
+    </Provider>
   );
-}
+};
+
+export default App;
