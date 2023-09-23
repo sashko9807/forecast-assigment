@@ -10,7 +10,7 @@ type THourAndDate = {
 
 export function getWeekDayAndDate(
   date: number,
-  timezoneOffset: number,
+  timezoneOffset: number
 ): TWeekAndDate {
   const currentDate = new Date();
   const forecastDate = new Date(parseUnixDate(date, timezoneOffset));
@@ -18,7 +18,7 @@ export function getWeekDayAndDate(
   let weekDay = forecastDate.toLocaleString("bg-BG", { weekday: "long" });
 
   const isYesterday = currentDate.getDate() - 1 === forecastDate.getDate();
-  const isToday = currentDate.getDay() === forecastDate.getDay();
+  const isToday = currentDate.getDate() === forecastDate.getDate();
   const isTommorow = currentDate.getDay() + 1 === forecastDate.getDay();
 
   if (isYesterday) {
@@ -45,7 +45,7 @@ export function getWeekDayAndDate(
 
 export function getHoursAndDate(
   date: number,
-  timezoneOffset: number,
+  timezoneOffset: number
 ): THourAndDate {
   const forecastDate = new Date(parseUnixDate(date, timezoneOffset));
   return {
@@ -63,7 +63,7 @@ export function getHoursAndDate(
 
 export function getSunriseAndSunsetHour(
   date: number,
-  timezoneOffset: number,
+  timezoneOffset: number
 ): string {
   const forecastDate = new Date(parseUnixDate(date, timezoneOffset));
   return forecastDate.toLocaleString("bg-BG", {
