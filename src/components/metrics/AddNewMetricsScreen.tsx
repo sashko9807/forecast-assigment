@@ -18,6 +18,7 @@ export default function AddNewMetricScreen({ hideForm }: any) {
 
   const [addMetrics, { isLoading, isSuccess, isError }] =
     useAddMetricsDataMutation();
+
   const onSubmit: SubmitHandler<TMetricInputSchema> = async (data) => {
     try {
       const metrics = await addMetrics({ data }).unwrap();

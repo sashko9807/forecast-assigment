@@ -7,6 +7,12 @@ export const forecastQueries = apiSlice.injectEndpoints({
       }),
       providesTags: ["forecast"],
     }),
+    getForecastForPreviousDay: builder.query({
+      query: ({ location, dt }) => ({
+        url: `/api/get-forecast-history?lat=${location.lat}&lon=${location.lon}&date=${dt}`,
+      }),
+      providesTags: ["forecast"],
+    }),
     addMetricsData: builder.mutation({
       query: (metrics) => ({
         url: "/api/metrics/add",
@@ -17,5 +23,8 @@ export const forecastQueries = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetLatestForecastDataQuery, useAddMetricsDataMutation } =
-  forecastQueries;
+export const {
+  useGetLatestForecastDataQuery,
+  useLazyGetForecastForPreviousDayQuery,
+  useAddMetricsDataMutation,
+} = forecastQueries;

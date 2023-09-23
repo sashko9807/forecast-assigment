@@ -72,6 +72,17 @@ export function getSunriseAndSunsetHour(
   });
 }
 
-function parseUnixDate(date: number, offset: number) {
+export function getPreviousDateToUnix(date: number) {
+  const currentDate = new Date(parseUnixDate(date));
+  currentDate.setDate(currentDate.getDate() - 1);
+  const unixDate = dateToUNIXDateConverted(currentDate.getTime());
+  return unixDate;
+}
+
+function parseUnixDate(date: number, offset: number = 0) {
   return (date + offset) * 1000;
+}
+
+function dateToUNIXDateConverted(date: number) {
+  return Math.floor(date / 1000);
 }

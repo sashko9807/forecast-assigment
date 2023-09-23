@@ -21,7 +21,17 @@ export const weatherSlice = createSlice({
       (state, action) => {
         const { payload } = action;
         state.forecast = payload;
-      },
+      }
+    );
+    builder.addMatcher(
+      forecastQueries.endpoints.getForecastForPreviousDay.matchFulfilled,
+      (state, action) => {
+        const { payload } = action;
+        (state.forecast as any).hourly = [
+          ...payload.hourly,
+          ...(state.forecast as any).hourly,
+        ];
+      }
     );
   },
 });
@@ -38,11 +48,15 @@ export const getCurrentForecastWithTZOffset = createSelector(
       daily: state.daily,
       offset: state.timezone_offset,
     };
-  },
+  }
 );
 
 export const getHourlyForecastWithTZOffset = (state: any) => {
   return {
+    location: {
+      lat: state.weather.forecast.lat,
+      lon: state.weather.forecast.lon,
+    },
     hourly: state.weather.forecast?.hourly,
     offset: state.weather.forecast?.timezone_offset,
   };
