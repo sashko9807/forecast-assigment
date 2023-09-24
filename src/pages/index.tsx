@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useGetLatestForecastDataQuery } from "@/common/api/weatherQueries";
 
 import { storeWrapper } from "@/common/redux/store";
@@ -46,14 +46,15 @@ const CITY_SELECTOR = [
   },
 ];
 
-export default function IndexPage() {
+export default function IndexPage({ city }: any) {
   const [selectedCity, setSelectedCity] = useState(CITY_SELECTOR[0]);
 
   const [showDropDown, setShowDropDown] = useState(false);
+  const changedCityRef = useRef(false);
 
   const { data = {}, isLoading } = useGetLatestForecastDataQuery(
     selectedCity.full,
-    { refetchOnMountOrArgChange: true, skip: true }
+    { refetchOnMountOrArgChange: true, skip: !changedCityRef.current }
   );
 
   const showCityDropdownSelector = () => {
@@ -62,6 +63,7 @@ export default function IndexPage() {
 
   const handleCitySelect = (value: any) => {
     setSelectedCity(value);
+    changedCityRef.current = true;
     setShowDropDown(false);
   };
 
@@ -119,7 +121,9 @@ export const getServerSideProps = storeWrapper.getServerSideProps(
     await Promise.all(store.dispatch(apiSlice.util.getRunningQueriesThunk()));
 
     return {
-      props: {},
+      props: {
+        city: "Sofia,Bulgaria",
+      },
     };
   }
 );
