@@ -53,7 +53,7 @@ export default function IndexPage() {
 
   const { data = {}, isLoading } = useGetLatestForecastDataQuery(
     selectedCity.full,
-    { refetchOnMountOrArgChange: true },
+    { refetchOnMountOrArgChange: true, skip: true }
   );
 
   const showCityDropdownSelector = () => {
@@ -67,32 +67,32 @@ export default function IndexPage() {
 
   return (
     <div>
-      <main className="w-full flex p-4">
+      <main className='w-full flex p-4'>
         {/*Select city section*/}
-        <div className="flex flex-col mt-10 w-full justify-center items-center ">
-          <div className="w-full  max-w-[1200px] relative flex flex-col  py-5 gap-2">
+        <div className='flex flex-col mt-10 w-full justify-center items-center '>
+          <div className='w-full  max-w-[1200px] relative flex flex-col  py-5 gap-2'>
             <div
-              className="flex justify-between w-36 shadow-sm"
+              className='flex justify-between w-36 shadow-sm'
               onClick={showCityDropdownSelector}
-              aria-label="select-city"
+              aria-label='select-city'
             >
-              <h1 className="text-white">Изберете град</h1>
+              <h1 className='text-white'>Изберете град</h1>
               <Image
-                className="items-center"
+                className='items-center'
                 src={"/icons/right-arrow.svg"}
                 width={20}
                 height={20}
-                alt="select-city"
+                alt='select-city'
               />
             </div>
             {showDropDown && (
               <div
-                className="w-60 p-5 rounded-lg bg-white absolute shadow-md"
-                aria-label="city-dropdown"
+                className='w-60 p-5 rounded-lg bg-white absolute shadow-md'
+                aria-label='city-dropdown'
               >
                 {CITY_SELECTOR.map((value, index) => (
                   <div
-                    className="text-black"
+                    className='text-black'
                     key={index}
                     aria-label={`${value.city}`}
                     onClick={() => handleCitySelect(value)}
@@ -102,8 +102,8 @@ export default function IndexPage() {
                 ))}
               </div>
             )}
-            <h2 className="text-2xl text-white">{selectedCity.city}</h2>
-            <h2 className="text-2xl text-white">{selectedCity.country}</h2>
+            <h2 className='text-2xl text-white'>{selectedCity.city}</h2>
+            <h2 className='text-2xl text-white'>{selectedCity.country}</h2>
           </div>
           <ForecastPanel />
         </div>
@@ -121,5 +121,5 @@ export const getServerSideProps = storeWrapper.getServerSideProps(
     return {
       props: {},
     };
-  },
+  }
 );
