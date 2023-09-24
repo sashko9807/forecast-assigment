@@ -4,7 +4,7 @@ import {
   GetCoordsFromCityName,
   openWeatherRequestBuilder,
 } from "@/common/utils/openWeatherRequestBuilder";
-import { env } from "@/common/validation/envValidation";
+import { env } from "@/env.mjs";
 
 type Data = {
   name: string;

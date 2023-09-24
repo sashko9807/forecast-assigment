@@ -1,11 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-  GetCoordsFromCityName,
-  openWeatherHistoryRequestBuilder,
-  openWeatherRequestBuilder,
-} from "@/common/utils/openWeatherRequestBuilder";
-import { env } from "@/common/validation/envValidation";
+import { openWeatherHistoryRequestBuilder } from "@/common/utils/openWeatherRequestBuilder";
+import { env } from "@/env.mjs";
 
 type Data = {
   name: string;
