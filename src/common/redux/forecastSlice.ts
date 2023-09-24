@@ -12,8 +12,18 @@ export const weatherSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(HYDRATE, (state: any, action: any) => {
+      console.log(action.payload);
       const dynamicKey = Object.keys(action.payload.api.queries)[0];
       const hackySSR = action.payload.api.queries[dynamicKey].data;
+      if (hackySSR.cod) {
+        throw new Error(
+          JSON.stringify({
+            status: hackySSR.cod,
+            message: hackySSR.message,
+          })
+        );
+      }
+
       state.forecast = hackySSR;
     });
     builder.addMatcher(
