@@ -48,8 +48,6 @@ export default function DailyForecastScreen() {
     }
   };
 
-  console.log(disablePrevButton);
-
   return (
     <div className='flex relative flex-col'>
       <div className='flex relative flex-row bg-white'>
