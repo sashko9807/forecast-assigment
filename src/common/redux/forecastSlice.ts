@@ -36,6 +36,7 @@ export const weatherSlice = createSlice({
       forecastQueries.endpoints.getForecastForPreviousDay.matchFulfilled,
       (state, action) => {
         const { payload } = action;
+        if (payload.cod) return { ...state };
         (state.forecast as any).hourly = [
           ...payload.hourly,
           ...(state.forecast as any).hourly,

@@ -9,7 +9,7 @@ import { openWeatherImageUrl } from "@/common/utils/openWeatherRequestBuilder";
 import WeatherTooltip from "./WeatherTooltip";
 import InformationIcon from "../../../public/icons/information";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddNewMetricScreen from "../metrics/AddNewMetricsScreen";
 import { useLazyGetForecastForPreviousDayQuery } from "@/common/api/weatherQueries";
 
@@ -19,12 +19,11 @@ export default function DailyForecastScreen() {
     getHourlyForecastWithTZOffset
   );
   const [showMetricForm, setShowMetricForm] = useState(false);
-  const prevBtnRef = useRef<any>(0);
-  const lastFetchedDate = useRef<any>();
-  const OPEN_WEATHER_HISTORY_LIMIT = 192;
-  const [disablePrevButton, setDisablePrevButton] = useState(
-    hourly.length >= OPEN_WEATHER_HISTORY_LIMIT
-  );
+  const prevBtnRef = useRef<any>(1);
+  const OPEN_WEATHER_HISTORY_LIMIT = 168;
+
+  const MAXIMUM_HOURLY_SIZE_REACHED =
+    hourly.length >= OPEN_WEATHER_HISTORY_LIMIT || prevBtnRef.current >= 5;
 
   const [trigger, { isLoading, isSuccess }, lastPromiseInfo] =
     useLazyGetForecastForPreviousDayQuery();
@@ -34,17 +33,16 @@ export default function DailyForecastScreen() {
   };
 
   const handlePrevForecastClick = () => {
-    const dt = getPreviousDateToUnix(
-      lastFetchedDate.current ?? hourly[0].dt + offset
-    );
-    trigger({ location, dt });
-    if (isSuccess) {
-      lastFetchedDate.current = dt;
-      prevBtnRef.current = prevBtnRef.current + 1;
+    if (MAXIMUM_HOURLY_SIZE_REACHED) {
+      return;
     }
 
-    if (prevBtnRef.current >= 5) {
-      setDisablePrevButton(true);
+    console.log(`called`);
+    const dt = getPreviousDateToUnix(hourly[0].dt + offset);
+    trigger({ location, dt }).unwrap();
+
+    if (isSuccess) {
+      prevBtnRef.current = prevBtnRef.current + 1;
     }
   };
 
@@ -115,9 +113,9 @@ export default function DailyForecastScreen() {
       <div className='flex justify-center relative  py-2 h-fit w-full bg-white'>
         <button
           onClick={handlePrevForecastClick}
-          disabled={disablePrevButton || isLoading}
-          className={`w-fit bg-orange-500 rounded-lg ${
-            disablePrevButton ? "bg-gray-500" : ""
+          disabled={isLoading || MAXIMUM_HOURLY_SIZE_REACHED}
+          className={`w-fit  rounded-lg ${
+            MAXIMUM_HOURLY_SIZE_REACHED ? "bg-gray-500" : "bg-orange-500"
           } p-2 text-white`}
         >
           Прогноза за предишни дни
