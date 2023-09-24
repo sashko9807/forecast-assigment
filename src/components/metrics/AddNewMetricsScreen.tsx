@@ -5,6 +5,7 @@ import {
   TMetricInputSchema,
 } from "@/common/validation/stationaryMetricsInput";
 import { useAddMetricsDataMutation } from "@/common/api/weatherQueries";
+import React from "react";
 
 export default function AddNewMetricScreen({ hideForm }: any) {
   const {
@@ -45,102 +46,46 @@ export default function AddNewMetricScreen({ hideForm }: any) {
       </button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col justify-center gap-3 px-5 w-full'>
-          <label className='flex flex-col'>
-            Username:
-            <input
-              type='text'
-              className={`rounded-lg ${
-                errors.username && " border-2 border-red-500"
-              } bg-slate-200 px-4`}
-              {...register("username")}
-            />
-            <p className='text-red-500 text-[12px]'>
-              {errors.username && errors.username.message}
-            </p>
-          </label>
-          <label className={`flex flex-col`}>
-            Email:
-            <input
-              type='email'
-              className={`rounded-lg ${
-                errors.email && " border-2 border-red-500"
-              } bg-slate-200 px-4`}
-              {...register("email")}
-            />
-            <p className='text-red-500 text-[12px]'>
-              {errors.email && errors.email.message}
-            </p>
-          </label>
-          <label className={`flex flex-col`}>
-            Temperature:
-            <input
-              type='text'
-              inputMode='numeric'
-              className={`rounded-lg ${
-                errors.temperature && "border-2 border-red-500"
-              } px-4 bg-slate-200`}
-              {...register("temperature", { valueAsNumber: true })}
-            />
-            <p className='text-red-500 text-[12px]'>
-              {errors.temperature && errors.temperature.message}
-            </p>
-          </label>
-          <label className='flex flex-col'>
-            Wind speed:
-            <input
-              type='text'
-              inputMode='numeric'
-              className={`rounded-lg ${
-                errors.wind_speed && " border-2 border-red-500"
-              } px-4 bg-slate-200`}
-              {...register("wind_speed", { valueAsNumber: true })}
-            />
-            <p className='text-red-500 text-[12px]'>
-              {errors.wind_speed && errors.wind_speed.message}
-            </p>
-          </label>
-          <label className='flex flex-col'>
-            Humidity:
-            <input
-              type='text'
-              inputMode='numeric'
-              className={`rounded-lg ${
-                errors.humidity && "border-2 border-red-500"
-              } px-4 bg-slate-200`}
-              {...register("humidity", { valueAsNumber: true })}
-            />
-            <p className='text-red-500 text-[12px]'>
-              {errors.humidity && errors.humidity.message}
-            </p>
-          </label>
-          <label className='flex flex-col'>
-            Pressure:
-            <input
-              type='text'
-              inputMode='numeric'
-              className={`rounded-lg ${
-                errors.pressure && "border-2 border-red-500"
-              } px-4 bg-slate-200`}
-              {...register("pressure", { valueAsNumber: true })}
-            />
-            <p className='text-red-500 text-[12px]'>
-              {errors.pressure && errors.pressure.message}
-            </p>
-          </label>
-          <label className='flex flex-col'>
-            Rain:
-            <input
-              type='text'
-              inputMode='numeric'
-              className={`rounded-lg ${
-                errors.rain && "border-2 border-red-500"
-              } px-4 bg-slate-200`}
-              {...register("rain", { valueAsNumber: true })}
-            />
-            <p className='text-red-500 text-[12px]'>
-              {errors.rain && errors.rain.message}
-            </p>
-          </label>
+          <FormInput
+            label={"Username:"}
+            errors={errors?.username}
+            {...register("username")}
+          />
+          <FormInput
+            label={"Email:"}
+            errors={errors?.email}
+            {...register("email")}
+          />
+          <FormInput
+            label={"Temperature:"}
+            inputMode={"numeric"}
+            errors={errors?.temperature}
+            {...register("temperature", { valueAsNumber: true })}
+          />
+          <FormInput
+            label={"Wind speed:"}
+            inputMode={"numeric"}
+            errors={errors?.wind_speed}
+            {...register("wind_speed", { valueAsNumber: true })}
+          />
+          <FormInput
+            label={"Humidity:"}
+            inputMode={"numeric"}
+            errors={errors?.humidity}
+            {...register("humidity", { valueAsNumber: true })}
+          />
+          <FormInput
+            label={"Pressure:"}
+            inputMode={"numeric"}
+            errors={errors?.pressure}
+            {...register("pressure", { valueAsNumber: true })}
+          />
+          <FormInput
+            label={"Rain:"}
+            inputMode={"numeric"}
+            errors={errors?.rain}
+            {...register("rain", { valueAsNumber: true })}
+          />
           <input
             type='submit'
             className='bg-orange-500 p-2  rounded-lg justify-center text-white'
@@ -152,3 +97,23 @@ export default function AddNewMetricScreen({ hideForm }: any) {
     </div>
   );
 }
+
+const FormInput = React.forwardRef(
+  ({ onChange, inputMode = "text", onBlur, name, label, errors }: any, ref) => (
+    <label className='flex flex-col'>
+      {label}
+      <input
+        type='text'
+        name={name}
+        ref={ref as any}
+        onChange={onChange}
+        onBlur={onBlur}
+        inputMode={inputMode}
+        className={`rounded-lg ${
+          errors && "border-2 border-red-500"
+        } px-4 bg-slate-200`}
+      />
+      <p className='text-red-500 text-[12px]'>{errors && errors.message}</p>
+    </label>
+  )
+);
