@@ -15,7 +15,11 @@ export async function openWeatherRequestBuilder(
   const forecastRequest = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`
   );
-  const response = await forecastRequest.json();
+
+  const response = {
+    isSuccess: forecastRequest.ok,
+    data: await forecastRequest.json(),
+  };
   return response;
 }
 

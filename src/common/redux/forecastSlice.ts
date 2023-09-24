@@ -12,25 +12,24 @@ export const weatherSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(HYDRATE, (state: any, action: any) => {
-      console.log(action.payload);
       const dynamicKey = Object.keys(action.payload.api.queries)[0];
-      const hackySSR = action.payload.api.queries[dynamicKey].data;
-      if (hackySSR.cod) {
+      const hackySSR = action.payload.api.queries[dynamicKey];
+      if (hackySSR.error) {
         throw new Error(
           JSON.stringify({
-            status: hackySSR.cod,
-            message: hackySSR.message,
+            status: hackySSR.error.status,
+            message: hackySSR.error.data.message,
           })
         );
       }
 
-      state.forecast = hackySSR;
+      state.forecast = hackySSR.data.data;
     });
     builder.addMatcher(
       forecastQueries.endpoints.getLatestForecastData.matchFulfilled,
       (state, action) => {
         const { payload } = action;
-        state.forecast = payload;
+        state.forecast = payload.data;
       }
     );
     builder.addMatcher(
