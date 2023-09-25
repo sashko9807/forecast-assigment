@@ -9,11 +9,12 @@ export const openWeatherImageUrl = (image: string) =>
 export async function openWeatherRequestBuilder(
   coords: any,
   apiKey: any,
-  unit: string = "metric"
+  unit: string = "metric",
+  language: string = "bg"
 ) {
   const { lat, lng } = coords;
   const forecastRequest = await fetch(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=${unit}&lang=${language}&appid=${apiKey}`
   );
 
   const response = {

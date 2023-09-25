@@ -37,7 +37,6 @@ export default function DailyForecastScreen() {
       return;
     }
 
-    console.log(`called`);
     const dt = getPreviousDateToUnix(hourly[0].dt + offset);
     trigger({ location, dt }).unwrap();
 
