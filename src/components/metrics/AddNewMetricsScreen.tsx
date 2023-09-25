@@ -117,3 +117,4 @@ const FormInput = React.forwardRef(
     </label>
   )
 );
+FormInput.displayName = "FormInput";
