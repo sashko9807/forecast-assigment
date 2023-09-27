@@ -14,14 +14,14 @@ const FORECAST_OPTIONS = [
 ];
 
 export default function ForecastPanel() {
-  const [selectedMenu, setSelectedMenu] = useState(0);
+  const [selectedMenu, setSelectedMenu] = useState<number>(0);
 
-  const handleMenuSelect = (index: any) => {
+  const handleMenuSelect = (index: number) => {
     setSelectedMenu(index);
   };
 
   return (
-    <div className="w-full  max-w-[1200px] flex flex-col">
+    <div className='w-full  max-w-[1230px] flex flex-col'>
       <div
         className={`flex flex-row  justify-center sm:justify-start  sm:border-none border-orange-500  gap-1`}
       >
@@ -36,7 +36,7 @@ export default function ForecastPanel() {
               sm:w-fit
               ${
                 selectedMenu === index &&
-                "active !border-b-0  sm:!w-[330px] sm:h-[70px] hidden sm:block"
+                "active !border-b-0  sm:!w-[360px] sm:h-[70px] hidden sm:block"
               } 
                bg-white
                border-orange-500

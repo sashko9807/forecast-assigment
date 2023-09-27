@@ -151,7 +151,7 @@ function DailyForecastCard({
             </div>
           </div>
           <div className='flex flex-row  items-center gap-1 sm:flex-col sm:my-[2rem]'>
-            <div className='relative  w-[50px] min-[450px]:w-32 aspect-square'>
+            <div className='relative  h-auto w-[50px] min-[450px]:w-32 aspect-square'>
               <Image
                 src={openWeatherImageUrl(elem.weather[0].icon)}
                 fill

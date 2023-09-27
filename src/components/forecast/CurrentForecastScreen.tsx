@@ -19,7 +19,7 @@ export default function CurrentWeatherScreen() {
           offset={dailyWeatherData.offset}
         />
       </div>
-      <div className='flex flex-col  justify-start w-full sm:self-stretch sm:flex-row relative sm:overflow-x-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-600'>
+      <div className='flex flex-col  justify-start w-full sm:bg-[#34313B] sm:py-5 sm:self-stretch sm:flex-row relative sm:overflow-x-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-600'>
         <SevenDaysForecastCard
           dailyForecast={dailyWeatherData.daily}
           offset={dailyWeatherData.offset}
@@ -31,7 +31,7 @@ export default function CurrentWeatherScreen() {
 
 function CurrentForecastCard({ currentWeather }: any) {
   return (
-    <div className='sm:w-[330px]  bg-white'>
+    <div className='sm:w-[360px]  bg-white'>
       <h1 className='text-black text-center text-2xl font-medium sm:hidden'>
         В момента
       </h1>
@@ -69,7 +69,7 @@ function CurrentForecastCard({ currentWeather }: any) {
           <span className='text-sm'>°C</span>
         </div>
       </div>
-      <div className='grid grid-cols-6 gap-1 mt-5 sm:mt-8 sm:relative'>
+      <div className='grid grid-cols-6 gap-1 mt-5 sm:mt-8 sm:relative p-3'>
         <div className='flex flex-col items-center'>
           <Image
             priority
@@ -133,11 +133,11 @@ function SevenDaysForecastCard({ dailyForecast, offset }: any) {
         return (
           <div
             key={weatherData.dt}
-            className='relative sm:border-r-2 border-t-2 sm:border-t-0 last:border-r-0 border-dashed sm:bg-[#34313B] bg-white'
+            className='relative sm:border-r-2 border-t-2 sm:border-t-0 last:border-r-0 w-full p-2 sm:p-0 border-dashed sm:bg-[#34313B] bg-white'
           >
-            <div className=' flex flex-wrap sm:min-w-[290px] sm:flex-col sm:bg-[#34313B] sm:border-t-0 items-center py-4 px-4 w-full bg-white justify-between'>
+            <div className=' flex flex-wrap sm:min-w-[290px] sm:flex-col sm:bg-[#34313B] sm:border-t-0 items-center w-full bg-white  justify-between'>
               <div className='flex flex-col'>
-                <h1 className='text-sm min-[450px]:text-lg font-medium sm:text-center sm:text-white'>
+                <h1 className='text-sm min-[450px]:text-lg capitalize font-medium sm:text-center sm:text-white'>
                   {forecast.weekday}
                 </h1>
                 <h1 className='text-sm min-[450px]:text-lg text-[#C8C9CA] sm:text-center'>
