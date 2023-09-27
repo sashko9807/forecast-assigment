@@ -32,7 +32,7 @@ export default function CurrentWeatherScreen() {
 function CurrentForecastCard({ currentWeather }: any) {
   return (
     <div className='sm:w-[360px]  bg-white'>
-      <h1 className='text-black text-center text-2xl font-medium sm:hidden'>
+      <h1 className='text-black text-center py-4  text-xl font-medium sm:hidden'>
         В момента
       </h1>
       <div className='flex flex-wrapflex-col justify-center items-center gap-1 px-5'>
