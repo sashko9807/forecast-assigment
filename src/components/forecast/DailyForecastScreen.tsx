@@ -5,7 +5,7 @@ import {
   getHoursAndDate,
   getPreviousDateToUnix,
 } from "@/common/utils/dateUtils";
-import { openWeatherImageUrl } from "@/common/utils/openWeatherRequestBuilder";
+import { openWeatherImageUrl } from "@/common/utils/openWeatherRequests";
 import WeatherTooltip from "./WeatherTooltip";
 import InformationIcon from "../../../public/icons/information";
 import Image from "next/image";

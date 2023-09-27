@@ -1,8 +1,5 @@
 import { TForecastData } from "../types/forecast";
-type TLocation = {
-  lat: number;
-  lng: number;
-};
+import { TLocation } from "../types/maps-geocode";
 
 type TAddMetricsReqBody = {
   station_id: string;
@@ -91,17 +88,4 @@ export async function addNewMeasurementData(
 
   const response = await request.json();
   return response;
-}
-
-export async function getCoordsFromCityName(
-  city: string,
-  mapsApiKey: string
-): Promise<TLocation> {
-  const request = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      city
-    )}&key=${mapsApiKey}`
-  );
-  const response = await request.json();
-  return response.results[0].geometry.location;
 }

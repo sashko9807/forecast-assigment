@@ -1,14 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-  getCoordsFromCityName,
-  getLatestForecastInfo,
-} from "@/common/utils/openWeatherRequestBuilder";
+import { getLatestForecastInfo } from "@/common/utils/openWeatherRequests";
+import { getCoordsFromCityName } from "@/common/utils/googleMapsApiRequest";
 import { env } from "@/env.mjs";
-
-type Data = {
-  name: string;
-};
 
 export default async function handler(
   req: NextApiRequest,

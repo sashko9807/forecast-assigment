@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { getCurrentForecastWithTZOffset } from "@/common/redux/forecastSlice";
 import Image from "next/image";
-import { openWeatherImageUrl } from "@/common/utils/openWeatherRequestBuilder";
+import { openWeatherImageUrl } from "@/common/utils/openWeatherRequests";
 import { getHoursAndDate } from "@/common/utils/dateUtils";
 import { useExpandContent } from "@/common/hooks/useExpandContent";
 import InformationIcon from "../../../public/icons/information";

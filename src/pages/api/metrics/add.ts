@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "@/env.mjs";
-import { addNewMeasurementData } from "@/common/utils/openWeatherRequestBuilder";
+import { addNewMeasurementData } from "@/common/utils/openWeatherRequests";
 
 export default async function handler(
   req: NextApiRequest,
