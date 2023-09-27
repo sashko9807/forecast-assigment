@@ -1,24 +1,9 @@
-import { TForecastData } from "../types/forecast";
+import { TForecastResponse } from "../types/openweather-forecast";
 import { TLocation } from "../types/maps-geocode";
-
-type TAddMetricsReqBody = {
-  station_id: string;
-  dt: number;
-  username: string;
-  email: string;
-  temperature: number;
-  wind_speed: number;
-  humidity: number;
-  pressure: number;
-  rain_1h: number;
-};
-
-type TForecastError = {
-  cod: number;
-  message: string;
-};
-
-type TForecastResponse = TForecastError | TForecastData;
+import {
+  TAddMeasurmentError,
+  TAddMetricsReqBody,
+} from "../types/openweather-metrics";
 
 export const openWeatherImageUrl = (image: string) =>
   `https://openweathermap.org/img/wn/${image}@4x.png`;
@@ -52,15 +37,10 @@ export async function getPastForecastInfo(
   return response;
 }
 
-type TAddMeasurmentError = {
-  code: number;
-  message: string;
-};
-
 export async function addNewMeasurementData(
   apiKey: string,
   stationId: string,
-  body: Omit<TAddMetricsReqBody, "station_id" | "dt">
+  body: TAddMetricsReqBody
 ): Promise<TAddMeasurmentError | Response> {
   const reqBody: TAddMetricsReqBody = {
     station_id: stationId,
@@ -79,13 +59,15 @@ export async function addNewMeasurementData(
     body: JSON.stringify([reqBody]),
     headers: { "Content-Type": "application/json", Accept: "application/json" },
   };
+
   const request = await fetch(
     `https://api.openweathermap.org/data/3.0/measurements?appid=${apiKey}`,
     reqOptions
   );
 
+  //OpenWeather responds with status 204 on success, thus no response body to parse to JSON
   if (request.ok) return request;
 
-  const response = await request.json();
-  return response;
+  const responseErr = (await request.json()) as TAddMeasurmentError;
+  return responseErr;
 }

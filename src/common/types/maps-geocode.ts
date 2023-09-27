@@ -24,8 +24,11 @@ type MapsResultBody = {
   types: Array<string>;
 };
 
+type ResponseStatus = "OK" | "REQUEST_DENIED";
+
 export type MapsGeocodeResponse = {
-  status: string;
+  status: ResponseStatus;
+  error_message: string;
   results: Array<MapsResultBody>;
 };
 

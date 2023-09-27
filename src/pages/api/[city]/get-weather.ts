@@ -12,6 +12,9 @@ export default async function handler(
     req.query.city as string,
     env.GOOGLE_MAPS_API_KEY
   );
+
+  if ("error_message" in cityCoords) return;
+
   const forecast = await getLatestForecastInfo(
     cityCoords,
     env.OPEN_WEATHER_API_KEY

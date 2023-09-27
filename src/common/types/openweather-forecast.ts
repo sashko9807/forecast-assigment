@@ -1,3 +1,10 @@
+type TWeather = Array<{
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}>;
+
 type TCurrentForecast = {
   dt: number;
   sunrise: number;
@@ -12,12 +19,7 @@ type TCurrentForecast = {
   visibility: number;
   wind_speed: number;
   wind_deg: number;
-  weather: Array<{
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }>;
+  weather: TWeather;
 };
 
 type TMinutelyForecast = {
@@ -56,12 +58,7 @@ type TDailyForecast = {
   wind_speed: number;
   wind_deg: number;
   wind_gust: number;
-  weather: Array<{
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }>;
+  weather: TWeather;
   clouds: number;
   pop: number;
   uvi: number;
@@ -77,3 +74,10 @@ export type TForecastData = {
   hourly: Array<THourlyForecast>;
   daily: Array<TDailyForecast>;
 };
+
+type TForecastError = {
+  cod: number;
+  message: string;
+};
+
+export type TForecastResponse = TForecastError | TForecastData;

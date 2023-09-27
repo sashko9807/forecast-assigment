@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { forecastQueries } from "../api/weatherQueries";
 import { HYDRATE } from "next-redux-wrapper";
-import { TForecastData } from "../types/forecast";
+import { TForecastData } from "../types/openweather-forecast";
 import { AppState } from "./store";
 
 type TStoreState = {
