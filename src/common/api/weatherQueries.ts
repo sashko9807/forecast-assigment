@@ -17,7 +17,7 @@ export const forecastQueries = apiSlice.injectEndpoints({
       query: (metrics) => ({
         url: "/api/metrics/add",
         method: "POST",
-        body: { ...metrics },
+        body: { ...metrics.data },
       }),
     }),
   }),

@@ -7,14 +7,14 @@ export const openWeatherImageUrl = (image: string) =>
   `https://openweathermap.org/img/wn/${image}@4x.png`;
 
 export async function openWeatherRequestBuilder(
-  coords: any,
-  apiKey: any,
+  coords: TLocation,
+  apiKey: string,
   unit: string = "metric",
-  language: string = "bg",
+  language: string = "bg"
 ) {
   const { lat, lng } = coords;
   const forecastRequest = await fetch(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=${unit}&lang=${language}&appid=${apiKey}`,
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=${unit}&lang=${language}&appid=${apiKey}`
   );
 
   const response = {
@@ -29,10 +29,10 @@ export async function openWeatherHistoryRequestBuilder(
   lat: string,
   lon: string,
   dateInUnix: string,
-  unit: string = "metric",
+  unit: string = "metric"
 ) {
   const request = await fetch(
-    `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${dateInUnix}&units=${unit}&appid=${apiKey}`,
+    `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${dateInUnix}&units=${unit}&appid=${apiKey}`
   );
 
   const response = await request.json();
@@ -42,7 +42,7 @@ export async function openWeatherHistoryRequestBuilder(
 export async function openWeatherAddMeasurements(
   apiKey: string,
   stationId: string,
-  body: any,
+  body: any
 ) {
   const reqBody: any = {
     station_id: stationId,
@@ -63,7 +63,7 @@ export async function openWeatherAddMeasurements(
   };
   const request = await fetch(
     `https://api.openweathermap.org/data/3.0/measurements?appid=${apiKey}`,
-    reqOptions,
+    reqOptions
   );
   if (request.ok) return request;
 
@@ -74,8 +74,8 @@ export async function openWeatherAddMeasurements(
 export async function GetCoordsFromCityName(city: string, mapsApiKey: string) {
   const request = await fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      city,
-    )}&key=${mapsApiKey}`,
+      city
+    )}&key=${mapsApiKey}`
   );
   const response = await request.json();
   return response.results[0].geometry.location as TLocation;
