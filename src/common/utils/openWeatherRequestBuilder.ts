@@ -26,7 +26,7 @@ type TForecastResponse = TForecastError | TForecastData;
 export const openWeatherImageUrl = (image: string) =>
   `https://openweathermap.org/img/wn/${image}@4x.png`;
 
-export async function openWeatherRequestBuilder(
+export async function getLatestForecastInfo(
   coords: TLocation,
   apiKey: string,
   unit: string = "metric",
@@ -40,7 +40,7 @@ export async function openWeatherRequestBuilder(
   return await forecastRequest.json();
 }
 
-export async function openWeatherHistoryRequestBuilder(
+export async function getPastForecastInfo(
   apiKey: string,
   lat: string,
   lon: string,
@@ -60,7 +60,7 @@ type TAddMeasurmentError = {
   message: string;
 };
 
-export async function openWeatherAddMeasurements(
+export async function addNewMeasurementData(
   apiKey: string,
   stationId: string,
   body: Omit<TAddMetricsReqBody, "station_id" | "dt">
@@ -93,7 +93,7 @@ export async function openWeatherAddMeasurements(
   return response;
 }
 
-export async function GetCoordsFromCityName(
+export async function getCoordsFromCityName(
   city: string,
   mapsApiKey: string
 ): Promise<TLocation> {

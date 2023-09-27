@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import {
-  GetCoordsFromCityName,
-  openWeatherRequestBuilder,
+  getCoordsFromCityName,
+  getLatestForecastInfo,
 } from "@/common/utils/openWeatherRequestBuilder";
 import { env } from "@/env.mjs";
 
@@ -14,11 +14,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const cityCoords = await GetCoordsFromCityName(
+  const cityCoords = await getCoordsFromCityName(
     req.query.city as string,
     env.GOOGLE_MAPS_API_KEY
   );
-  const forecast = await openWeatherRequestBuilder(
+  const forecast = await getLatestForecastInfo(
     cityCoords,
     env.OPEN_WEATHER_API_KEY
   );
