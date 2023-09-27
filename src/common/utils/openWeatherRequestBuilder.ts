@@ -1,3 +1,4 @@
+import { TForecastData } from "../types/forecast";
 type TLocation = {
   lat: number;
   lng: number;
@@ -13,86 +14,6 @@ type TAddMetricsReqBody = {
   humidity: number;
   pressure: number;
   rain_1h: number;
-};
-
-type TCurrentForecast = {
-  dt: number;
-  sunrise: number;
-  sunset: number;
-  temp: number;
-  feels_like: number;
-  pressure: number;
-  humidity: number;
-  dew_point: number;
-  uvi: number;
-  clouds: number;
-  visibility: number;
-  wind_speed: number;
-  wind_deg: number;
-  weather: Array<{
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }>;
-};
-
-type TMinutelyForecast = {
-  dt: number;
-  precipitation: number;
-};
-
-type THourlyForecast = Omit<TCurrentForecast, "sunrise" | "sunset"> & {
-  pop: number;
-};
-
-type TDailyForecast = {
-  dt: number;
-  sunrise: number;
-  sunset: number;
-  moonrise: number;
-  moonset: number;
-  moon_phase: number;
-  temp: {
-    day: number;
-    min: number;
-    max: number;
-    night: number;
-    eve: number;
-    morn: number;
-  };
-  feels_like: {
-    day: number;
-    night: number;
-    eve: number;
-    morn: number;
-  };
-  pressure: number;
-  humidity: number;
-  dew_point: number;
-  wind_speed: number;
-  wind_deg: number;
-  wind_gust: number;
-  weather: Array<{
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }>;
-  clouds: number;
-  pop: number;
-  uvi: number;
-};
-
-type TForecastData = {
-  lat: number;
-  lon: number;
-  timezone: string;
-  timezone_offset: string;
-  current: TCurrentForecast;
-  minutely: Array<TMinutelyForecast>;
-  hourly: Array<THourlyForecast>;
-  daily: Array<TDailyForecast>;
 };
 
 type TForecastError = {

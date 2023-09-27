@@ -1,9 +1,20 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  PayloadAction,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit";
 import { forecastQueries } from "../api/weatherQueries";
 import { HYDRATE } from "next-redux-wrapper";
+import { TForecastData } from "../types/forecast";
+import { AppState } from "./store";
 
-const initialState = {
-  forecast: {},
+type TStoreState = {
+  forecast: TForecastData;
+};
+
+const initialState: TStoreState = {
+  forecast: {} as TForecastData,
 };
 
 export const weatherSlice = createSlice({
@@ -11,7 +22,7 @@ export const weatherSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(HYDRATE, (state: any, action: any) => {
+    builder.addCase(HYDRATE, (state: TStoreState, action: AnyAction) => {
       const dynamicKey = Object.keys(action.payload.api.queries)[0];
       const hackySSR = action.payload.api.queries[dynamicKey];
       if (hackySSR.error) {
@@ -27,20 +38,17 @@ export const weatherSlice = createSlice({
     });
     builder.addMatcher(
       forecastQueries.endpoints.getLatestForecastData.matchFulfilled,
-      (state, action) => {
+      (state: TStoreState, action: PayloadAction<TForecastData>) => {
         const { payload } = action;
         state.forecast = payload;
       }
     );
     builder.addMatcher(
       forecastQueries.endpoints.getForecastForPreviousDay.matchFulfilled,
-      (state, action) => {
+      (state: TStoreState, action: PayloadAction<TForecastData>) => {
         const { payload } = action;
-        if (payload.cod) return { ...state };
-        (state.forecast as any).hourly = [
-          ...payload.hourly,
-          ...(state.forecast as any).hourly,
-        ];
+        if ("cod" in payload) return { ...state };
+        state.forecast.hourly = [...payload.hourly, ...state.forecast.hourly];
       }
     );
   },
@@ -48,10 +56,10 @@ export const weatherSlice = createSlice({
 
 export default weatherSlice.reducer;
 
-const currentLocale = (state: any) => state.weather.forecast;
+const currentForecast = (state: AppState) => state.weather.forecast;
 
 export const getCurrentForecastWithTZOffset = createSelector(
-  [currentLocale],
+  [currentForecast],
   (state) => {
     return {
       current: state.current,
@@ -62,7 +70,7 @@ export const getCurrentForecastWithTZOffset = createSelector(
 );
 
 export const getHourlyForecastWithTZOffset = createSelector(
-  [currentLocale],
+  [currentForecast],
   (state) => {
     return {
       location: {

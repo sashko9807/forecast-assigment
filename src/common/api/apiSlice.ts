@@ -13,7 +13,7 @@ export const apiSlice = createApi({
   },
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
-      return action.payload[reducerPath].data;
+      return action.payload[reducerPath];
     }
   },
   tagTypes: ["forecast"],
