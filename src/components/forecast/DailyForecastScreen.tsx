@@ -9,9 +9,10 @@ import { openWeatherImageUrl } from "@/common/utils/openWeatherRequestBuilder";
 import WeatherTooltip from "./WeatherTooltip";
 import InformationIcon from "../../../public/icons/information";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import AddNewMetricScreen from "../metrics/AddNewMetricsScreen";
 import { useLazyGetForecastForPreviousDayQuery } from "@/common/api/weatherQueries";
+import LoadingSpinnder from "../common/LoadingSpinnder";
 
 export default function DailyForecastScreen() {
   const [activeTooltip, handleToolTipHover] = useExpandContent();
@@ -25,7 +26,7 @@ export default function DailyForecastScreen() {
   const MAXIMUM_HOURLY_SIZE_REACHED =
     hourly.length >= OPEN_WEATHER_HISTORY_LIMIT || prevBtnRef.current >= 5;
 
-  const [trigger, { isLoading, isSuccess }, lastPromiseInfo] =
+  const [trigger, { isLoading, isSuccess, isFetching }, lastPromiseInfo] =
     useLazyGetForecastForPreviousDayQuery();
 
   const toggleMetricForm = () => {
@@ -62,6 +63,11 @@ export default function DailyForecastScreen() {
           </div>
         </div>
         <div className='flex w-full sm:w-fit  flex-col  sm:flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-rounded-[100px] scrollbar-track-gray-100'>
+          {(isLoading || isFetching) && (
+            <div className='absolute  w-[87.5%] h-[100%]'>
+              <LoadingSpinnder />
+            </div>
+          )}
           <button className='py-4 sm:hidden' onClick={toggleMetricForm}>
             {" "}
             + Добави нови измервания

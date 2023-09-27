@@ -12,15 +12,15 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>
+  res: NextApiResponse<any>,
 ) {
   const cityCoords = await GetCoordsFromCityName(
     req.query.city as string,
-    env.GOOGLE_MAPS_API_KEY
+    env.GOOGLE_MAPS_API_KEY,
   );
   const forecast = await openWeatherRequestBuilder(
     cityCoords,
-    env.OPEN_WEATHER_API_KEY
+    env.OPEN_WEATHER_API_KEY,
   );
   if (!forecast.isSuccess) {
     res.status(forecast.data.cod).json({ message: forecast.data.message });

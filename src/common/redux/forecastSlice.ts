@@ -61,13 +61,16 @@ export const getCurrentForecastWithTZOffset = createSelector(
   }
 );
 
-export const getHourlyForecastWithTZOffset = (state: any) => {
-  return {
-    location: {
-      lat: state.weather.forecast.lat,
-      lon: state.weather.forecast.lon,
-    },
-    hourly: state.weather.forecast?.hourly,
-    offset: state.weather.forecast?.timezone_offset,
-  };
-};
+export const getHourlyForecastWithTZOffset = createSelector(
+  [currentLocale],
+  (state) => {
+    return {
+      location: {
+        lat: state.lat,
+        lon: state.lon,
+      },
+      hourly: state.hourly,
+      offset: state.timezone_offset,
+    };
+  }
+);

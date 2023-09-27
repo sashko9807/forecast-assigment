@@ -4,7 +4,7 @@ import { openWeatherAddMeasurements } from "@/common/utils/openWeatherRequestBui
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>
+  res: NextApiResponse<any>,
 ) {
   const apiKey = env.OPEN_WEATHER_API_KEY;
   const stationId = env.OPEN_WEATHER_STATION_ID;
