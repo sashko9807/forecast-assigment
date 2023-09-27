@@ -23,13 +23,13 @@ export const weatherSlice = createSlice({
         );
       }
 
-      state.forecast = hackySSR.data.data;
+      state.forecast = hackySSR.data;
     });
     builder.addMatcher(
       forecastQueries.endpoints.getLatestForecastData.matchFulfilled,
       (state, action) => {
         const { payload } = action;
-        state.forecast = payload.data;
+        state.forecast = payload;
       }
     );
     builder.addMatcher(

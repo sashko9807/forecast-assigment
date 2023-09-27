@@ -9,7 +9,7 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>,
+  res: NextApiResponse<any>
 ) {
   const apiKey = env.OPEN_WEATHER_API_KEY;
   const { lat, lon, date } = req.query as any;
@@ -17,9 +17,9 @@ export default async function handler(
     apiKey,
     lat,
     lon,
-    date,
+    date
   );
-  if (historyForecast.cod === 400) {
+  if ("cod" in historyForecast && historyForecast.cod === 400) {
     res.status(400).json({ status: 400, message: historyForecast.message });
     return;
   }

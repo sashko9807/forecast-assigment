@@ -22,7 +22,7 @@ export const metricsInputSchema = zod.object({
     .number()
     .min(0, "Pressure level can't be below 0 hPa")
     .max(3000, "Pressure level can't exceed 3000hPa"),
-  rain: zod
+  rain_1h: zod
     .number()
     .min(0, "Rain level can't be below 0mm")
     .max(1000, "Rain level can't exceed 1000mm"),
