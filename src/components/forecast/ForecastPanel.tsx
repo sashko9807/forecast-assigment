@@ -36,7 +36,7 @@ export default function ForecastPanel() {
               sm:w-fit
               ${
                 selectedMenu === index &&
-                "active !border-b-0  sm:!w-[360px] sm:h-[70px] hidden sm:block"
+                "active !border-b-0  sm:!w-[360px] font-bold text-xl sm:h-[70px] hidden sm:block"
               } 
                bg-white
                border-orange-500
