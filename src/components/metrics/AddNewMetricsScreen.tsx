@@ -86,11 +86,12 @@ export default function AddNewMetricScreen({ hideForm }: any) {
             errors={errors?.rain_1h}
             {...register("rain_1h", { valueAsNumber: true })}
           />
-          <input
+          <button
             type='submit'
             className='bg-orange-500 p-2  rounded-lg justify-center text-white'
-            value='Изпрати'
-          />
+          >
+            Изпрати
+          </button>
         </div>
         <div className='w-full justify-center flex'></div>
       </form>
